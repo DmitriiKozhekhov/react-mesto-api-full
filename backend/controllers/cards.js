@@ -1,14 +1,13 @@
 const { default: mongoose } = require('mongoose');
 const Cards = require('../models/card');
-const {
-  NOT_FOUND, CAST_ERROR,
+const { CAST_ERROR,
 } = require('../constants');
 const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFound');
 const Forbidden = require('../errors/Forbidden');
 
 module.exports.getCard = (req, res, next) => {
-  Cards.find({})
+  Cards.find({}).sort({ createdAt: -1 })
     .then((card) => res.send(card))
     .catch((err) => next(err));
 };
@@ -33,7 +32,7 @@ module.exports.deleteCard = (req, res, next) => {
       if (card.owner.toString() !== req.user._id) {
         throw new Forbidden('Вы не можете удалить не свою карточку');
       }
-      return Cards.findByIdAndRemove(req.params.cardId).orFail(new Error(NOT_FOUND))
+      return Cards.findByIdAndRemove(req.params.cardId)
         // eslint-disable-next-line no-shadow
         .then((card) => {
           res.send({ data: card });
@@ -54,7 +53,7 @@ module.exports.likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .orFail(new Error(NOT_FOUND))
+    .orFail(() => new NotFound('Карточка не найдена'))
     .then((card) => {
       res.send(card);
     })
@@ -62,11 +61,6 @@ module.exports.likeCard = (req, res, next) => {
       if (err.name === CAST_ERROR) {
         return next(new BadRequest('Некорректные данные запроса'));
       }
-
-      if (err.message === NOT_FOUND) {
-        return next(new NotFound('Карточка не найдена'));
-      }
-
       return next(err);
     });
 };
@@ -77,7 +71,7 @@ module.exports.dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .orFail(new Error(NOT_FOUND))
+    .orFail(() => new NotFound('Карточка не найдена'))
     .then((card) => {
       res.send(card);
     })
@@ -85,11 +79,6 @@ module.exports.dislikeCard = (req, res, next) => {
       if (err.name === CAST_ERROR) {
         return next(new BadRequest('Некорректные данные запроса'));
       }
-
-      if (err.message === NOT_FOUND) {
-        return next(new NotFound('Карточка не найдена'));
-      }
-
       return next(err);
     });
 };

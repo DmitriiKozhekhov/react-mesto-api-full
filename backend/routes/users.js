@@ -13,7 +13,6 @@ const {
 router.use(auth);
 router.get('/', getUsers);
 router.get('/me', getUser);
-router.post('/', createUser);
 router.patch('/me', validationOfUser, editUser);
 router.patch('/me/avatar', validationOfAvatar, editAvatar);
 router.get('/:userId', validationOfUserId, getUser);

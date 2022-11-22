@@ -117,7 +117,5 @@ module.exports.login = (req, res, next) => {
         .status(200).send({ message: 'Авторзация прошла успешно' });
     })
     // eslint-disable-next-line arrow-body-style, no-unused-vars
-    .catch((err) => {
-      return next(new Unauthorized('Ошибка авторизации пользователя'));
-    });
+    .catch(next);
 };

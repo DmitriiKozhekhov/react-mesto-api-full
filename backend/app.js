@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 const centralizedErrorHandler = require('./middlewares/centralizedErrorHandler');
-const { validationOfAuth } = require('./middlewares/reqValidation');
+const { validationOfAuth, validationOfLogin } = require('./middlewares/reqValidation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
 const NotFound = require('./errors/NotFound');
@@ -20,11 +20,16 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
 app.use(cors);
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
 });
 
-app.post('/signin', validationOfAuth, login);
+app.post('/signin', validationOfLogin, login);
 app.post('/signup', validationOfAuth, createUser);
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
