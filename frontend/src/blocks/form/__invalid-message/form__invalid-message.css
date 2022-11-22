@@ -1,0 +1,12 @@
+.form__invalid-message {
+  font-size: 12px;
+  line-height: 15px;
+  margin: 5px 0 0 0;
+  min-height: 30px;
+  transition: all linear .3s;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  color: #FF0000;
+  opacity: 0;
+}

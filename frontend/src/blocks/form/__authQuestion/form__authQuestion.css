@@ -1,0 +1,9 @@
+.form__authQuestion {
+  text-align: center;
+  font-weight: normal;
+  font-size: 14px;
+  margin: 15px auto 0;
+  padding: 0;
+  color: #fff;
+  line-height: 17px;
+}

@@ -1,0 +1,12 @@
+.header__navigator {
+  grid-template-columns: repeat(2, minmax(min-content, max-content));
+  gap: 24px;
+  font-size: 18px;
+  line-height: 22px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}

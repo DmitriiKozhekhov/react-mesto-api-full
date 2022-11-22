@@ -1,0 +1,14 @@
+.form__input_auth {
+  border: none;
+  font-weight: normal;
+  border-bottom: 2px solid #cccccc;
+  color: #cccccc;
+  margin: 0;
+  padding: 13px 0;
+  background: #000;
+  font-size: 14px;
+  line-height: 17px;
+}
+.form__input_auth:focus {
+  outline: none;
+}

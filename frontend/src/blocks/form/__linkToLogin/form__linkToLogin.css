@@ -1,0 +1,8 @@
+.form__linkToLogin {
+  text-decoration: none;
+  color: #fff;
+}
+.form__linkToLogin:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
