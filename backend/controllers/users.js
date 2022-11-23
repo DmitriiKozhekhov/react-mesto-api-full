@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jsonwebtoken = require('jsonwebtoken');
 const Users = require('../models/user');
-const {
-  NOT_FOUND, CAST_ERROR,
+const { CAST_ERROR,
 } = require('../constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
