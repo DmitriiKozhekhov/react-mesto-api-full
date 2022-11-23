@@ -20,7 +20,7 @@ module.exports.getUsers = (req, res, next) => {
 };
 module.exports.getUser = (req, res, next) => {
   Users.findById(req.params.userId || req.user._id)
-    .orFail(new Error(NOT_FOUND))
+    .orFail(() => new NotFound('Запрашиваемый пользователь не найден'))
     .then((user) => {
       res.send({ data: user });
     })
@@ -28,11 +28,6 @@ module.exports.getUser = (req, res, next) => {
       if (err.name === CAST_ERROR) {
         return next(new BadRequest('Некорректные данные заапроса'));
       }
-
-      if (err.message === NOT_FOUND) {
-        return next(new NotFound('Пользователь не найден'));
-      }
-
       return next(err);
     });
 };
