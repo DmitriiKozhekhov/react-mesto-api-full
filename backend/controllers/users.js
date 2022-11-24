@@ -8,7 +8,6 @@ const { CAST_ERROR,
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const BadRequest = require('../errors/BadRequest');
-const Unauthorized = require('../errors/Unauthorized');
 const Conflict = require('../errors/Conflict');
 const NotFound = require('../errors/NotFound');
 
